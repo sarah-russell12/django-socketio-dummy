@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	</head>
+	<body>
+		<script>
+			const socket = io('http://127.0.0.1:8000/');
+			
+			socket.on('double response', (data) => {
+				document.forms['doubleForm']['doubled'].value = data['result'];
+			});
+			
+			function double() {
+				var num = document.forms['doubleForm']['number'].value;
+				socket.emit('double', {'number' : num});
+			}
+		</script>
+		<form name="doubleForm">
+			<input type="number" name="number" id="number"><br>
+			<button onclick="double()"><br>
+			This number * 2 is = <output name="doubled" id="doubled">
+		</form>
+	</body>
+</html>

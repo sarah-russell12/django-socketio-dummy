@@ -8,13 +8,9 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 """
 
 import os
-import socketio
 
 from django.core.wsgi import get_wsgi_application
-from sio import server
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dummyapp.settings')
 
 application = get_wsgi_application()
-
-application = socketio.WSGIApp(server, application)

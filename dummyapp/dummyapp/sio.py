@@ -8,6 +8,7 @@ Created on Tue Sep 17 13:01:26 2019
 """
 
 import socketio
+from .wsgi import application
 
 server = socketio.Server()
 
@@ -15,4 +16,6 @@ server = socketio.Server()
 def double(sid, data):
     number = int(data.number)
     number *= 2
-    server.emit('multiply response', {'result' : number})
+    server.emit('double response', {'result' : number}, room=sid)
+    
+sioApp = socketio.WSGIApp(server, application)
