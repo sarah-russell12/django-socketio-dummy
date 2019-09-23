@@ -4,25 +4,27 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
 	</head>
 	<body>
 		<script>
-			const socket = io('http://127.0.0.1:8000/');
+			const socket = io.connect();
 			
-			socket.on('double response', (data) => {
-				document.forms['doubleForm']['doubled'].value = data['result'];
+			socket.on('double_response', (message) => {
+				$('#result').text(message['data']);
 			});
 			
-			function double() {
-				var num = document.forms['doubleForm']['number'].value;
-				socket.emit('double', {'number' : num});
-			}
+			$('form#double').submit(function(event) {
+				socket.emit('double', {data : $('#number').val()});
+				return false;
+			});
 		</script>
-		<form name="doubleForm">
+		<form id="double" method="POST" action=#>
+			{% csrf_token %}
 			<input type="number" name="number" id="number"><br>
-			<button onclick="double()"><br>
-			This number * 2 is = <output name="doubled" id="doubled">
+			<input type="submit" value="Double This!"><br>
 		</form>
+		This number * 2 is = <output name="result" id="result">
 	</body>
 </html>

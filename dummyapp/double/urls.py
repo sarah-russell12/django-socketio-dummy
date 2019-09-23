@@ -7,8 +7,8 @@ Created on Thu Sep 19 14:34:34 2019
 
 from django.urls import path
 
-from .views import HomeView
+from . import views
 
 urlpatterns = [
-        path('home/', HomeView.as_view(), name='home'),
+        path('home/', views.home, name='home'),
         ]
