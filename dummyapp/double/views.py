@@ -9,12 +9,16 @@ from django.shortcuts import render
 from django.template import loader
 from django.views import generic
 
+from queue import Queue
+
 import os
 import socketio
 
 basedir = os.path.dirname(os.path.realpath(__file__))
 server = socketio.Server(async_mode='eventlet')
 thread = None
+
+userQueue = Queue()
 
 # Create your views here.
 def home(request):
@@ -46,3 +50,11 @@ def connect(sid, environ):
 def disconnect(sid):
     print("Client with sid {sid} disconnected".format(sid=sid))
 
+@server.on('enqueue')
+def queue_user(sid):
+    print("Client with sid {sid} wants to be added to a queue".format(sid=sid))
+    global userQueue
+    userQueue.put(sid)
+    position = userQueue.qsize()
+    server.emit('enqueue_response', {'position': position}, room=sid)
+    

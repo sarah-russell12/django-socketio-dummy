@@ -16,6 +16,11 @@
 				$('#result').text(message['data']);
 			});
 			
+			socket.on('enqueue_response', (message) => {
+				console.log(message);
+				$('#queuePlace').text(message['position']);
+			});
+			
 			socket.on('connected', (message) => {
 				console.log(message);
 			});
@@ -25,12 +30,22 @@
 				socket.emit('double', {data : $('#number').val()});
 				console.log("request sent");
 			}
+			
+			function enqueueRequest () {
+				console.log("sending enqueue request");
+				socket.emit('enqueue');
+				console.log("request sent")
+			}
 		</script>
+		<h3>Doubling Numbers</h3>
 		<form id="double">
 			{% csrf_token %}
 			<input type="number" name="number" id="number"><br>
 			<button type="button" onclick="doubleRequest()">Double This!</button><br>
 		</form>
-		This number * 2 is = <span name="result" id="result"></span>
+		This number * 2 is = <span name="result" id="result"></span><br/>
+		<h3>Queue</h3>
+		<button type="button" onclick="enqueueRequest()">Queue Me!</button><br>
+		Your place in the queue is: <span id="queuePlace"></span>
 	</body>
 </html>
