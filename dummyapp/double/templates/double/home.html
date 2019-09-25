@@ -12,19 +12,25 @@
 			const socket = io.connect();
 			
 			socket.on('double_response', (message) => {
+				console.log(message);
 				$('#result').text(message['data']);
 			});
 			
-			$('form#double').submit(function(event) {
-				socket.emit('double', {data : $('#number').val()});
-				return false;
+			socket.on('connected', (message) => {
+				console.log(message);
 			});
+			
+			function doubleRequest() {
+				console.log("sending double request");
+				socket.emit('double', {data : $('#number').val()});
+				console.log("request sent");
+			}
 		</script>
-		<form id="double" method="POST" action=#>
+		<form id="double">
 			{% csrf_token %}
 			<input type="number" name="number" id="number"><br>
-			<input type="submit" value="Double This!"><br>
+			<button type="button" onclick="doubleRequest()">Double This!</button><br>
 		</form>
-		This number * 2 is = <output name="result" id="result">
+		This number * 2 is = <span name="result" id="result"></span>
 	</body>
 </html>

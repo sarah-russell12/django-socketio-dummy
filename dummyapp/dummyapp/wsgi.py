@@ -19,3 +19,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dummyapp.settings')
 application = get_wsgi_application()
 
 application = WSGIApp(server, application)
+import eventlet
+eventlet.wsgi.server(eventlet.listen(('', 8000)), application)

@@ -30,9 +30,10 @@ def background_thread():
         count += 1
         server.emit('connected', {'data' : 'You are still connected'})
 
-@server.event
+@server.on('double')
 def double(sid, message):
-    number = int(message['number'])
+    print("Client with sid {sid} wants to double a number".format(sid=sid))
+    number = int(message['data'])
     number *= 2
     server.emit('double_response', {'data' : number}, room=sid)
 
