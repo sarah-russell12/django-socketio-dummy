@@ -22,10 +22,17 @@ userQueue = Queue()
 
 # Create your views here.
 def home(request):
+    #global thread
+    #if thread is None:
+    #    thread = server.start_background_task(background_thread)
+    return render(request, 'double/home.html')
+
+def play(request):
     global thread
     if thread is None:
         thread = server.start_background_task(background_thread)
-    return render(request, 'double/home.html')
+    return render(request, 'double/play.html')
+
 
 def background_thread():
     count = 0

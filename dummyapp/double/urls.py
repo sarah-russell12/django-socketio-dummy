@@ -11,4 +11,5 @@ from . import views
 
 urlpatterns = [
         path('home/', views.home, name='home'),
+        path('play-with-sockets/', views.play, name='play'),
         ]

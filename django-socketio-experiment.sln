@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "django-socketio-experiment", "django-socketio-experiment.pyproj", "{F8122433-41CD-413B-A6EE-D98BC0AFC05E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8122433-41CD-413B-A6EE-D98BC0AFC05E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8122433-41CD-413B-A6EE-D98BC0AFC05E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46EDADC7-9133-4660-966D-8491E251D3FA}
+	EndGlobalSection
+EndGlobal

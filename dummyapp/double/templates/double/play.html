@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+    <title>Playing With Sockets</title>
+</head>
+<body>
+    <script>
+        const socket = io.connect();
+
+        socket.on('double_response', (message) => {
+            console.log(message);
+            $('#result').text(message['data']);
+        });
+
+        socket.on('enqueue_response', (message) => {
+            console.log(message);
+            $('#queuePlace').text(message['position']);
+        });
+
+        socket.on('connected', (message) => {
+            console.log(message);
+        });
+
+        function doubleRequest() {
+            console.log("sending double request");
+            socket.emit('double', { data: $('#number').val() });
+            console.log("request sent");
+        }
+
+        function enqueueRequest() {
+            console.log("sending enqueue request");
+            socket.emit('enqueue');
+            console.log("request sent")
+        }
+    </script>
+    <h3>Playing With Sockets</h3>
+    <form id="double">
+        {% csrf_token %}
+        <input type="number" name="number" id="number"><br>
+        <button type="button" onclick="doubleRequest()">Double This!</button><br>
+    </form>
+    This number * 2 is = <span name="result" id="result"></span><br />
+    <h3>Queue</h3>
+    <button type="button" onclick="enqueueRequest()">Queue Me!</button><br>
+    Your place in the queue is: <span id="queuePlace"></span>
+</body>
+</html>
